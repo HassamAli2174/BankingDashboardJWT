@@ -1,3 +1,17 @@
+Auth flow overview
+
+Login component posts credentials to /auth/login.
+
+Backend returns { accessToken: string, expiresIn: number, refreshToken?: string } (mocked here).
+
+AuthService stores token in localStorage or sessionStorage (choose based on security needs).
+
+AuthInterceptor attaches Authorization: Bearer <token> to outgoing requests to protected API paths.
+
+AuthGuard protects routes, uses canActivate to allow/redirect.
+
+Security note: For production, prefer httpOnly cookies for security against XSS; localStorage is easier for learning but less secure.
+
 # BankingDashboard
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
