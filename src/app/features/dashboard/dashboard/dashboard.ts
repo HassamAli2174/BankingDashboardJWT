@@ -3,9 +3,17 @@ import { AuthService } from '../../../core/services/auth'; // adjust path if nee
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule} from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+
+interface Account {
+  name: string;
+  balance: number;
+  icon: string;
+  color: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +24,26 @@ import { MatTableModule } from '@angular/material/table';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
 ],
   styleUrls: ['./dashboard.scss']
 })
 export class Dashboard implements OnInit {
+  accounts: Account[] = [];
+
+  ngOnInit(): void {
+    this.accounts = [
+      { name: 'Savings Account', balance: 15200.75, icon: 'savings', color: '#4CAF50' },
+      { name: 'Checking Account', balance: 3210.5, icon: 'account_balance', color: '#2196F3' },
+      { name: 'Credit Card', balance: -850.25, icon: 'credit_card', color: '#F44336' },
+    ];
+  }
+
+  formatBalance(balance: number): string {
+    const formatted = balance.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    return balance < 0 ? `(${formatted})` : formatted;
+  }
 
   totalBalance = 4500;
   recentTransactions = [
@@ -35,8 +58,6 @@ export class Dashboard implements OnInit {
     private authService: AuthService,
     private router: Router
   ) { }
-
-  ngOnInit() { }
 
   onLogout() {
     console.log('🔴 Logout clicked');

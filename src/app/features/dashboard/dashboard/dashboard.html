@@ -14,6 +14,19 @@
                 <h3>{{ totalBalance | currency }}</h3>
             </mat-card-content>
         </mat-card>
+        
+        <div class="account-summary">
+            <mat-card *ngFor="let account of accounts" class="account-card" [style.border-top-color]="account.color">
+                <mat-icon class="account-icon" [style.color]="account.color">{{ account.icon }}</mat-icon>
+                <div class="account-info">
+                    <h3>{{ account.name }}</h3>
+                    <p class="balance" [ngClass]="{'negative': account.balance < 0}">
+                        {{ formatBalance(account.balance) }}
+                    </p>
+                </div>
+            </mat-card>
+        </div>
+
 
         <mat-card class="stat-card">
             <mat-card-title>Recent Transactions</mat-card-title>

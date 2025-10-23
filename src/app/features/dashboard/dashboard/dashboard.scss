@@ -102,6 +102,53 @@ table {
     }
 }
 
+.account-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.account-card {
+    flex: 1 1 250px;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+    border-top: 5px solid;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .account-icon {
+        font-size: 40px;
+        margin-right: 16px;
+    }
+
+    .account-info {
+        h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .balance {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 4px;
+            color: #2e7d32;
+
+            &.negative {
+                color: #c62828;
+            }
+        }
+    }
+}
+
 /* ============= Responsive Design ============= */
 @media (max-width: 768px) {
     .dashboard-container {
