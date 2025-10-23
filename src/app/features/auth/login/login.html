@@ -1,31 +1,42 @@
-<div class="login-container">
+<div class="login-page">
     <mat-card class="login-card">
-        <h2>Secure Banking Login</h2>
+        <div class="brand-logo">
+            <span class="logo-icon">🏦</span>
+            <h1>BankPro</h1>
+        </div>
 
-<form #loginForm="ngForm" (ngSubmit)="submit(loginForm)">
-    <mat-form-field appearance="fill" style="width: 100%">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username" name="username" required #usernameCtrl="ngModel" />
-        <mat-error *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
-            Username is required
-        </mat-error>
-    </mat-form-field>
+        <h2 class="login-title">Secure Login</h2>
 
-    <mat-form-field appearance="fill" style="width: 100%">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="password" type="password" name="password" required #passwordCtrl="ngModel" />
-        <mat-error *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
-            Password is required
-        </mat-error>
-    </mat-form-field>
+        <form #loginForm="ngForm" (ngSubmit)="submit(loginForm)" autocomplete="off">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Username</mat-label>
+                <input matInput [(ngModel)]="username" name="username" required #usernameCtrl="ngModel"
+                    #usernameInput />
+                <mat-error *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
+                    Username is required
+                </mat-error>
+            </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="loading || loginForm.invalid"
-        style="width: 100%">
-        <span *ngIf="!loading">Login</span>
-        <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
-    </button>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput [(ngModel)]="password" type="password" name="password" required
+                    #passwordCtrl="ngModel" />
+                <mat-error *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+                    Password is required
+                </mat-error>
+            </mat-form-field>
 
-            <p *ngIf="error" style="color:red; text-align:center;">{{ error }}</p>
+            <button mat-raised-button color="primary" class="login-btn" type="submit"
+                [disabled]="loading || loginForm.invalid">
+                <ng-container *ngIf="!loading">Login</ng-container>
+                <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+            </button>
+
+            <div *ngIf="error" class="error-message">{{ error }}</div>
         </form>
+
+        <footer>
+            <p class="footer">© {{ currentYear }} MyBank. All rights reserved.</p>
+        </footer>
     </mat-card>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
 import { CommonModule } from '@angular/common';
@@ -24,17 +24,30 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username = '';
   password = '';
   loading = false;
   error = '';
+  currentYear = new Date().getFullYear();
+
+
+  @ViewChild('usernameInput') usernameInput!: ElementRef;
+new: any;
 
   constructor(private auth: AuthService, private router: Router) { }
 
+  ngOnInit(): void {
+    // redirect if already logged in
+    if (this.auth.hasToken()) this.router.navigate(['/dashboard']);
+
+    // focus input after slight delay
+    setTimeout(() => this.usernameInput?.nativeElement?.focus(), 300);
+  }
+
   submit(form: NgForm) {
     if (form.invalid) {
-      this.error = 'Please fill out all required fields.';
+      this.error = 'Please fill in all required fields.';
       return;
     }
 
